@@ -1,5 +1,6 @@
 package com.jovan.sgparkingv2.proxies.responses;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -15,31 +16,46 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CarparkAvailabilityProxyResponse {
 
+    @JsonProperty("items")
     private List<Item> items;
 
     @Data
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-    private static class Item{
+    public static class Item{
+
+        @JsonProperty("timestamp")
         private ZonedDateTime timestamp;
+
+        @JsonProperty("carpark_data")
         private List<CarparkData> carparkData;
+
     }
 
     @Data
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-    private static class CarparkData{
+    public static class CarparkData{
+
+        @JsonProperty("carpark_info")
         private List<CarparkInfo> carparkInfo;
+
+        @JsonProperty("carpark_number")
         private String carparkNumber;
+
+        @JsonProperty("update_datetime")
         private LocalDateTime updateDatetime;
+
     }
 
     @Data
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-    private static class CarparkInfo{
+    public static class CarparkInfo{
+
+        @JsonProperty("total_lots")
         private Integer totalLots;
+
+        @JsonProperty("lot_type")
         private String lotType;
+
+        @JsonProperty("lots_available")
         private Integer lotsAvailable;
     }
 }
