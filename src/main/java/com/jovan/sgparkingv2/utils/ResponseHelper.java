@@ -33,7 +33,7 @@ public class ResponseHelper {
         }
     }
 
-    public NearbyCarparksResponseHelper from(List<CarparkDetails> carparkDetailsList, List<CarparkAvailability> carparkAvailabilityList){
+    public static NearbyCarparksResponseHelper from(List<CarparkDetails> carparkDetailsList, List<CarparkAvailability> carparkAvailabilityList){
         return NearbyCarparksResponseHelper.builder().carparkDetailsList(carparkDetailsList).carparkAvailabilityList(carparkAvailabilityList).build();
     }
 
