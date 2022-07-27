@@ -1,6 +1,7 @@
 package com.jovan.sgparkingv2.controllers.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.jovan.sgparkingv2.entities.CarparkAvailability;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,18 +22,11 @@ public class NearbyCarparksResponse {
     @Data
     @Builder
     public static class CarparkCandidate{
-        private List<CarparkCandidateLotInfo> lotInformationList;
         private String address;
         private String carparkType;
-        private LocalDateTime updateDatetime;
-    }
-
-    @Data
-    @Builder
-    public static class CarparkCandidateLotInfo{
-        private Integer totalLots;
-        private Integer lotsAvailable;
-        private String lotType;
+        private Double xCoord;
+        private Double yCoord;
+        private List<CarparkAvailability> lotInformationList;
     }
 
 }

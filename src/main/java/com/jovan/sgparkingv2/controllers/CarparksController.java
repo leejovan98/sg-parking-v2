@@ -3,7 +3,6 @@ package com.jovan.sgparkingv2.controllers;
 import com.jovan.sgparkingv2.controllers.responses.NearbyCarparksResponse;
 import com.jovan.sgparkingv2.entities.CarparkAvailability;
 import com.jovan.sgparkingv2.entities.CarparkDetails;
-import com.jovan.sgparkingv2.proxies.requests.AddressQueryRequest;
 import com.jovan.sgparkingv2.proxies.responses.AddressQueryResponse;
 import com.jovan.sgparkingv2.services.CarparkAvailabilityService;
 import com.jovan.sgparkingv2.services.CarparkDetailsService;

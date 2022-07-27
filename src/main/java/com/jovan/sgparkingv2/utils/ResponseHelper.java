@@ -3,11 +3,7 @@ package com.jovan.sgparkingv2.utils;
 import com.jovan.sgparkingv2.controllers.responses.NearbyCarparksResponse;
 import com.jovan.sgparkingv2.entities.CarparkAvailability;
 import com.jovan.sgparkingv2.entities.CarparkDetails;
-import com.jovan.sgparkingv2.proxies.responses.AddressQueryResponse;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +13,7 @@ import java.util.stream.Collectors;
 public class ResponseHelper {
 
     @Builder
-    public class NearbyCarparksResponseHelper{
+    public static class NearbyCarparksResponseHelper{
         private List<CarparkDetails> carparkDetailsList;
         private List<CarparkAvailability> carparkAvailabilityList;
 
@@ -27,9 +23,15 @@ public class ResponseHelper {
 
             List<NearbyCarparksResponse.CarparkCandidate> carparkCandidates = new ArrayList<>();
             carparkNumberToCarparkDetails.forEach((carparkNumber, carparkDetail) ->{
-                // TODO
+                carparkCandidates.add(NearbyCarparksResponse.CarparkCandidate.builder()
+                        .carparkType(carparkDetail.getCarparkType())
+                        .address(carparkDetail.getAddress())
+                        .xCoord(carparkDetail.getXCoord())
+                        .yCoord(carparkDetail.getYCoord())
+                        .lotInformationList(carparkAvailabilityList.stream().filter(availability -> availability.getCarparkNumber().equals(carparkNumber)).collect(Collectors.toList()))
+                        .build());
             });
-            return null;
+            return NearbyCarparksResponse.builder().carparks(carparkCandidates).build();
         }
     }
 
