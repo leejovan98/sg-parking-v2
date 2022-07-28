@@ -15,7 +15,7 @@
 	<description>Updated version of sg-parking api</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<swagger.version>3.0.0</swagger.version>
 	</properties>
 
