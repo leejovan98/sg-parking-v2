@@ -16,6 +16,7 @@ public class CarparkDetailsService {
     private CarparkDetailsRepository carparkDetailsRepository;
 
     public List<CarparkDetails> retrieve10ClosestCarparks(Double x, Double y){
+        log.info("retrieving 10 closest carparks for coord ({}, {})", x, y);
         return carparkDetailsRepository.retrieve10ClosestCarparks(x, y);
     }
 

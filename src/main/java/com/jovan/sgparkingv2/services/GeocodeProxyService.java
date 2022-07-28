@@ -1,5 +1,6 @@
 package com.jovan.sgparkingv2.services;
 
+import com.jovan.sgparkingv2.exceptions.PoorAddressMatchException;
 import com.jovan.sgparkingv2.proxies.GeocodeProxy;
 import com.jovan.sgparkingv2.proxies.requests.AddressQueryRequest;
 import com.jovan.sgparkingv2.proxies.responses.AddressQueryResponse;
@@ -31,10 +32,13 @@ public class GeocodeProxyService {
     @Value("${proxy.arcgis.geocode.coordSys:3414}")
     private String coordSys;
 
+    @Value("${com.jovan.sgparkingv2.address.query.min-score:50}")
+    private Integer minScore;
 
-    public AddressQueryResponse queryAddress(String address){
-        log.info("querying address {} via geocode proxy");
-        return geocodeProxy.queryAddress(AddressQueryRequest.builder()
+
+    public AddressQueryResponse queryAddress(String address) {
+        log.info("querying address {} via geocode proxy", address);
+        AddressQueryResponse response = geocodeProxy.queryAddress(AddressQueryRequest.builder()
                 .f(format)
                 .countryCode(countryCode)
                 .city(city)
@@ -42,6 +46,16 @@ public class GeocodeProxyService {
                 .outSr(coordSys)
                 .address(address)
                 .build());
+        verifyScore(address, response, minScore);
+        return response;
+    }
+
+    private void verifyScore(String address, AddressQueryResponse response, Integer minScore) {
+        if(response.getTopCandidate().getScore() < minScore) {
+            log.error("address query for {} returned a poor candidate", address);
+            throw new PoorAddressMatchException(address, response.getTopCandidate().getScore());
+        }
+        log.info("address query for {} returned a passable candidate with score {}", address, response.getTopCandidate().getScore());
     }
 
 }

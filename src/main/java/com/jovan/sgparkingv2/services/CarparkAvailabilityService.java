@@ -21,17 +21,15 @@ public class CarparkAvailabilityService {
     @Autowired
     private CarparkAvailabilityRepository carparkAvailabilityRepository;
 
-    public List<CarparkAvailability> CarparkAvailabilities(List<CarparkAvailability> carparkAvailabilityList){
-        return carparkAvailabilityRepository.saveAll(carparkAvailabilityList);
-    }
-
     public List<CarparkAvailability> retrieveCarparkAvailabilities(List<CarparkDetails> carparkDetailsList){
+        log.info("retrieving carpark availabilities");
         return carparkAvailabilityRepository.findAllByCarparkNumberIn(
                 carparkDetailsList.stream().map(CarparkDetails::getCarparkNumber).collect(Collectors.toList())
         );
     }
 
     public List<CarparkAvailability> updateCarparkAvailabilities(List<CarparkAvailability> carparkAvailabilities){
+        log.info("updating carpark availabilities");
         return carparkAvailabilityRepository.saveAll(carparkAvailabilities);
     }
 }
