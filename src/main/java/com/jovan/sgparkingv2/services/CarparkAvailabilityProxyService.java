@@ -14,6 +14,7 @@ public class CarparkAvailabilityProxyService {
     private CarparkAvailabilityProxy carparkAvailabilityProxy;
 
     public CarparkAvailabilityProxyResponse retrieveCarparkAvailability(){
+        log.info("retrieving carpark availability from data.gov proxy");
         return carparkAvailabilityProxy.retrieveCarparkAvailability();
     }
 }

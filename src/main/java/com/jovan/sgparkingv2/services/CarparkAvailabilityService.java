@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.jovan.sgparkingv2.utils.CarparkAvailabilityHelper.mapProxyResponseToCarparkAvailabilities;
+
 @Service
 @Slf4j
 public class CarparkAvailabilityService {
@@ -19,29 +21,8 @@ public class CarparkAvailabilityService {
     @Autowired
     private CarparkAvailabilityRepository carparkAvailabilityRepository;
 
-    public List<CarparkAvailability> createCarparkAvailabilities(List<CarparkAvailability> carparkAvailabilityList){
+    public List<CarparkAvailability> CarparkAvailabilities(List<CarparkAvailability> carparkAvailabilityList){
         return carparkAvailabilityRepository.saveAll(carparkAvailabilityList);
-    }
-
-    public List<CarparkAvailability> createCarparkAvailabilities(CarparkAvailabilityProxyResponse carparkAvailabilityProxyResponse){
-        List<CarparkAvailability> carparkAvailabilityList = new ArrayList<>();
-        carparkAvailabilityProxyResponse.getItems()
-                .forEach(item -> {
-                    item.getCarparkData().forEach(data ->{
-                        data.getCarparkInfo().forEach(info -> {
-                            carparkAvailabilityList.add(
-                                CarparkAvailability.builder()
-                                        .carparkNumber(data.getCarparkNumber())
-                                        .totalLots(info.getTotalLots())
-                                        .lotType(info.getLotType())
-                                        .lotsAvailable(info.getLotsAvailable())
-                                        .updateDatetime(data.getUpdateDatetime())
-                                        .build()
-                            );
-                        });
-                    });
-                });
-        return createCarparkAvailabilities(carparkAvailabilityList);
     }
 
     public List<CarparkAvailability> retrieveCarparkAvailabilities(List<CarparkDetails> carparkDetailsList){

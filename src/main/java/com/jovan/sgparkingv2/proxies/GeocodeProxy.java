@@ -11,6 +11,6 @@ public interface GeocodeProxy {
 
 
     @GetMapping(value = "/findAddressCandidates")
-    public AddressQueryResponse queryAddress(@SpringQueryMap AddressQueryRequest request);
+    AddressQueryResponse queryAddress(@SpringQueryMap AddressQueryRequest request);
 
 }
