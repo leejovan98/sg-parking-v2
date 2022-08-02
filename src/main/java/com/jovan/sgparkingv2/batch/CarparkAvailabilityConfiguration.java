@@ -36,7 +36,7 @@ public class CarparkAvailabilityConfiguration {
     @Autowired
     private CarparkAvailabilityUpdateTasklet tasklet;
 
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(fixedRate = 60 * 1000, initialDelay = 0)
     public void updateCarparkAvailability() {
 
         JobParametersBuilder jobParamBuilder = new JobParametersBuilder();
